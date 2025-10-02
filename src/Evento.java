@@ -22,6 +22,33 @@ public class Evento {
         ingressosEspeciais = totalIngressos * 0.15;
         ingressosNormais = totalIngressos - ingressosEspeciais;
     }
+    private static String formatarNumero(int numero) {
+        if (numero < 10) {
+            return "00" + numero;
+        }
+        else if (numero < 100){
+            return "0" + numero;
+        }
+        else  {
+            return "" + numero;
+        }
+    }
+
+    private void gerarIngressos() {
+        int contador = 1;
+        for (int i = 0; i < ingressosNormais; i++) {
+            String codigo = codigoEvento + "-" + formatarNumero(contador);
+            ingressos.add(new Ingresso(codigo, null, false));
+            contador++;
+        }
+        for (int i = 0; i < ingressosEspeciais; i++) {
+            String codigo = codigoEvento + "-" + formatarNumero(contador) + "E";
+            ingressos.add(new Ingresso(codigo, null, true));
+            contador++;
+        }
+    }
+
+
 
     public int getCodigoEvento() {
 

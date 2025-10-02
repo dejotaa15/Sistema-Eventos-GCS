@@ -2,11 +2,13 @@ public class Ingresso {
     private String codigoIngresso;
     private Participante participante;
     private boolean presente;
+    private boolean ingressoEspecial;
 
-    public Ingresso(String codigoIngresso, Participante participante) {
+    public Ingresso(String codigoIngresso, Participante participante, boolean ingressoEspecial) {
         this.codigoIngresso = codigoIngresso;
         this.participante = participante;
         this.presente = false;
+        this.ingressoEspecial = ingressoEspecial;
     }
 
     public String getCodigoIngresso() {
