@@ -21,6 +21,7 @@ public class Evento {
         this.totalIngressos = totalIngressos;
         ingressosEspeciais = totalIngressos * 0.15;
         ingressosNormais = totalIngressos - ingressosEspeciais;
+        gerarIngressos();
     }
     private static String formatarNumero(int numero) {
         if (numero < 10) {
