@@ -8,6 +8,7 @@ public class Participante {
     }
 
     public String getNomeCompleto() {
+
         return nomeCompleto;
     }
 
@@ -17,6 +18,7 @@ public class Participante {
 
     @Override
     public String toString() {
+
         return nomeCompleto + " (CPF: " + cpf + ")";
     }
 }
