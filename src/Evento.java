@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Evento {
     private static int codigoBase = 100;
     private int codigoEvento;
@@ -6,6 +8,9 @@ public class Evento {
     private double valorIngresso;
     private String nomeResponsavel;
     private int totalIngressos;
+    private double ingressosNormais;
+    private double ingressosEspeciais;
+    ArrayList<Ingresso> ingressos = new ArrayList<>();
 
     public Evento(String nomeEvento, String dataEvento, double valorIngresso, String nomeResponsavel, int totalIngressos) {
         this.codigoEvento = ++codigoBase;
@@ -14,29 +19,37 @@ public class Evento {
         this.valorIngresso = valorIngresso;
         this.nomeResponsavel = nomeResponsavel;
         this.totalIngressos = totalIngressos;
+        ingressosEspeciais = totalIngressos * 0.15;
+        ingressosNormais = totalIngressos - ingressosEspeciais;
     }
 
     public int getCodigoEvento() {
+
         return codigoEvento;
     }
 
     public String getNomeEvento() {
+
         return nomeEvento;
     }
 
     public String getDataEvento() {
+
         return dataEvento;
     }
 
     public double getValorIngresso() {
+
         return valorIngresso;
     }
 
     public String getNomeResponsavel() {
+
         return nomeResponsavel;
     }
 
     public int getTotalIngressos() {
+
         return totalIngressos;
     }
 
