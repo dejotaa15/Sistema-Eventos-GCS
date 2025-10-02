@@ -27,8 +27,14 @@ public class Ingresso {
         this.presente = true;
     }
 
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
+    }
+
     @Override
     public String toString() {
         return "Ingresso: " + codigoIngresso + " | " + participante + " | Presente: " + presente;
     }
+
+
 }

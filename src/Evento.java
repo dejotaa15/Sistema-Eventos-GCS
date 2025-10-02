@@ -49,7 +49,25 @@ public class Evento {
         }
     }
 
+    public Ingresso comprarIngresso(Participante p) {
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.getParticipante() == null) { //ingresso disponivel
+                ingresso.setParticipante(p);
+                return ingresso;
+            }
+        }
+        return null; //nenhum ingresso disponivel
+    }
 
+    public int ingressosDisponiveis() {
+        int count = 0;
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.getParticipante() == null) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     public int getCodigoEvento() {
 
@@ -83,6 +101,17 @@ public class Evento {
 
     @Override
     public String toString() {
-        return codigoEvento + " - " + nomeEvento + " | Data: " + dataEvento + " | R$" + valorIngresso + " | Resp: " + nomeResponsavel + " | Ingressos: " + totalIngressos;
+        String resultado = codigoEvento + " - " + nomeEvento + " | Data: " + dataEvento + " | R$" + valorIngresso +
+                " | Resp: " + nomeResponsavel + " | Ingressos: " + totalIngressos +
+                " | Ingressos Disponiveis: " + ingressosDisponiveis() + "\nIngressos: ";
+
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.getParticipante() != null) {
+                resultado += ingresso.toString() + "; ";
+            }
+        }
+
+        return resultado;
     }
+
 }

@@ -3,6 +3,9 @@ public class Participante {
     private String cpf;
 
     public Participante(String nomeCompleto, String cpf) {
+        if (cpf == null || cpf.length() != 11) {
+            throw new IllegalArgumentException("CPF INVALIDO");
+        }
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
     }
