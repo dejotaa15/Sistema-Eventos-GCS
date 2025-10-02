@@ -35,4 +35,31 @@ public class GerenciadorEventos {
             System.out.println(evento);
         }
     }
+
+    public Evento procurarEvento(String termoBusca) {
+        if (listaEventos.isEmpty()) {
+            return null;
+        }
+
+        List<Evento> eventosEncontrados = new ArrayList<>();
+        String termoLowerCase = termoBusca.toLowerCase();
+
+        for (Evento evento : listaEventos) {
+            if (evento.getNomeEvento().toLowerCase().contains(termoLowerCase)) {
+                eventosEncontrados.add(evento);
+            }
+        }
+
+        if (eventosEncontrados.size() == 1) {
+            return eventosEncontrados.get(0);
+        } else if (eventosEncontrados.size() > 1) {
+            System.out.println("Múltiplos eventos encontrados:");
+            for (int i = 0; i < eventosEncontrados.size(); i++) {
+                System.out.println(" [" + (i + 1) + "] " + eventosEncontrados.get(i));
+            }
+            return null;
+        } else {
+            return null;
+        }
+    }
 }
