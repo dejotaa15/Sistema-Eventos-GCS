@@ -1,3 +1,4 @@
+
 public class Evento {
     private static int codigoBase = 100;
     private int codigoEvento;
