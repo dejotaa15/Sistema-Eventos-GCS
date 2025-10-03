@@ -19,16 +19,16 @@ public class Ingresso {
         return participante;
     }
 
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
+    }
+
     public boolean isPresente() {
         return presente;
     }
 
     public void registrarPresenca() {
         this.presente = true;
-    }
-
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
     }
 
     public boolean isIngressoEspecial() {
