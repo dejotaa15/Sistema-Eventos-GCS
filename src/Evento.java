@@ -23,6 +23,7 @@ public class Evento {
         ingressosNormais = totalIngressos - ingressosEspeciais;
         gerarIngressos();
     }
+
     private static String formatarNumero(int numero) {
         if (numero < 10) {
             return "00" + numero;
@@ -30,7 +31,7 @@ public class Evento {
         else if (numero < 100){
             return "0" + numero;
         }
-        else  {
+        else {
             return "" + numero;
         }
     }
@@ -51,12 +52,12 @@ public class Evento {
 
     public Ingresso comprarIngresso(Participante p, boolean ingressoEspecial) {
         for (Ingresso ingresso : ingressos) {
-            if (ingresso.getParticipante() == null && ingresso.isIngressoEspecial() == ingressoEspecial) { //ingresso disponivel
+            if (ingresso.getParticipante() == null && ingresso.isIngressoEspecial() == ingressoEspecial) {
                 ingresso.setParticipante(p);
                 return ingresso;
             }
         }
-        return null; //nenhum ingresso disponivel
+        return null;
     }
 
     public int ingressosDisponiveis() {
@@ -79,35 +80,49 @@ public class Evento {
         return false;
     }
 
-    public int getCodigoEvento() {
-
-        return codigoEvento;
+    public int ingressosVendidos() {
+        return totalIngressos - ingressosDisponiveis();
     }
 
-    public String getNomeEvento() {
-
-        return nomeEvento;
+    public int getIngressosVendidos(boolean especial) {
+        int count = 0;
+        for(Ingresso i : ingressos) {
+            if(i.getParticipante() != null && i.isIngressoEspecial() == especial) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    public String getDataEvento() {
-
-        return dataEvento;
+    public Ingresso buscarIngressoPorCodigo(String codigo) {
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.getCodigoIngresso().equals(codigo)) {
+                return ingresso;
+            }
+        }
+        return null;
     }
 
-    public double getValorIngresso() {
-
-        return valorIngresso;
+    public ArrayList<Ingresso> getIngressos() {
+        return ingressos;
     }
 
-    public String getNomeResponsavel() {
-
-        return nomeResponsavel;
+    public boolean isNoMesEAno(int mes, int ano) {
+        try {
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            java.time.LocalDate data = java.time.LocalDate.parse(dataEvento, formatter);
+            return data.getMonthValue() == mes && data.getYear() == ano;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public int getTotalIngressos() {
-
-        return totalIngressos;
-    }
+    public int getCodigoEvento() { return codigoEvento; }
+    public String getNomeEvento() { return nomeEvento; }
+    public String getDataEvento() { return dataEvento; }
+    public double getValorIngresso() { return valorIngresso; }
+    public String getNomeResponsavel() { return nomeResponsavel; }
+    public int getTotalIngressos() { return totalIngressos; }
 
     @Override
     public String toString() {
@@ -123,5 +138,4 @@ public class Evento {
 
         return resultado;
     }
-
 }
