@@ -19,6 +19,10 @@ public class Ingresso {
         return participante;
     }
 
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
+    }
+
     public boolean isPresente() {
         return presente;
     }
@@ -27,19 +31,14 @@ public class Ingresso {
         this.presente = true;
     }
 
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
-    }
-
     public boolean isIngressoEspecial() {
         return ingressoEspecial;
     }
 
-
     @Override
     public String toString() {
-        return "Ingresso: " + codigoIngresso + " | " + participante + " | Presente: " + presente;
+        return "Ingresso: " + codigoIngresso + " | " +
+                (participante != null ? participante.toString() : "Disponível") +
+                " | Presente: " + presente;
     }
-
-
 }

@@ -8,29 +8,29 @@ public class Evento {
     private double valorIngresso;
     private String nomeResponsavel;
     private int totalIngressos;
-    private double ingressosNormais;
-    private double ingressosEspeciais;
-    ArrayList<Ingresso> ingressos = new ArrayList<>();
+    private int ingressosNormais;
+    private int ingressosEspeciais;
+    private ArrayList<Ingresso> ingressos = new ArrayList<>();
 
-    public Evento(String nomeEvento, String dataEvento, double valorIngresso, String nomeResponsavel, int totalIngressos) {
+    public Evento(String nomeEvento, String dataEvento, double valorIngresso,
+                  String nomeResponsavel, int totalIngressos) {
         this.codigoEvento = ++codigoBase;
         this.nomeEvento = nomeEvento;
         this.dataEvento = dataEvento;
         this.valorIngresso = valorIngresso;
         this.nomeResponsavel = nomeResponsavel;
         this.totalIngressos = totalIngressos;
-        ingressosEspeciais = (int) Math.round(totalIngressos * 0.15);
-        ingressosNormais = totalIngressos - ingressosEspeciais;
+        this.ingressosEspeciais = (int) Math.round(totalIngressos * 0.15);
+        this.ingressosNormais = totalIngressos - ingressosEspeciais;
         gerarIngressos();
     }
+
     private static String formatarNumero(int numero) {
         if (numero < 10) {
             return "00" + numero;
-        }
-        else if (numero < 100){
+        } else if (numero < 100) {
             return "0" + numero;
-        }
-        else  {
+        } else {
             return "" + numero;
         }
     }
@@ -51,12 +51,12 @@ public class Evento {
 
     public Ingresso comprarIngresso(Participante p, boolean ingressoEspecial) {
         for (Ingresso ingresso : ingressos) {
-            if (ingresso.getParticipante() == null && ingresso.isIngressoEspecial() == ingressoEspecial) { //ingresso disponivel
+            if (ingresso.getParticipante() == null && ingresso.isIngressoEspecial() == ingressoEspecial) {
                 ingresso.setParticipante(p);
                 return ingresso;
             }
         }
-        return null; //nenhum ingresso disponivel
+        return null;
     }
 
     public int ingressosDisponiveis() {
@@ -71,7 +71,8 @@ public class Evento {
 
     public boolean registrarPresenca(String codigoIngresso) {
         for (Ingresso ingresso : ingressos) {
-            if (ingresso.getCodigoIngresso().equals(codigoIngresso) && ingresso.getParticipante() != null) {
+            if (ingresso.getCodigoIngresso().equals(codigoIngresso) &&
+                    ingresso.getParticipante() != null) {
                 ingresso.registrarPresenca();
                 return true;
             }
@@ -80,40 +81,69 @@ public class Evento {
     }
 
     public int getCodigoEvento() {
-
         return codigoEvento;
     }
 
     public String getNomeEvento() {
-
         return nomeEvento;
     }
 
     public String getDataEvento() {
-
         return dataEvento;
     }
 
     public double getValorIngresso() {
-
         return valorIngresso;
     }
 
     public String getNomeResponsavel() {
-
         return nomeResponsavel;
     }
 
     public int getTotalIngressos() {
-
         return totalIngressos;
+    }
+
+    // ------------------------
+    // 🔹 MÉTODOS NOVOS (7c)
+    // ------------------------
+
+    public int getIngressosVendidosNormais() {
+        int count = 0;
+        for (Ingresso ingresso : ingressos) {
+            if (!ingresso.isIngressoEspecial() && ingresso.getParticipante() != null) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getIngressosVendidosEspeciais() {
+        int count = 0;
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.isIngressoEspecial() && ingresso.getParticipante() != null) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public double getPercentualIngressosVendidosNormais() {
+        if (ingressosNormais == 0) return 0;
+        return (getIngressosVendidosNormais() * 100.0) / ingressosNormais;
+    }
+
+    public double getPercentualIngressosVendidosEspeciais() {
+        if (ingressosEspeciais == 0) return 0;
+        return (getIngressosVendidosEspeciais() * 100.0) / ingressosEspeciais;
     }
 
     @Override
     public String toString() {
-        String resultado = codigoEvento + " - " + nomeEvento + " | Data: " + dataEvento + " | R$" + valorIngresso +
-                " | Resp: " + nomeResponsavel + " | Ingressos: " + totalIngressos +
-                " | Ingressos Disponiveis: " + ingressosDisponiveis() + "\n" ;
+        String resultado = codigoEvento + " - " + nomeEvento + " | Data: " + dataEvento +
+                " | R$" + valorIngresso + " | Resp: " + nomeResponsavel +
+                " | Ingressos: " + totalIngressos +
+                " | Ingressos Disponiveis: " + ingressosDisponiveis() + "\n";
 
         for (Ingresso ingresso : ingressos) {
             if (ingresso.getParticipante() != null) {
@@ -123,5 +153,4 @@ public class Evento {
 
         return resultado;
     }
-
 }
