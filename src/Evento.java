@@ -11,6 +11,7 @@ public class Evento {
     private double ingressosNormais;
     private double ingressosEspeciais;
     ArrayList<Ingresso> ingressos = new ArrayList<>();
+    private String statusEvento;
 
     public Evento(String nomeEvento, String dataEvento, double valorIngresso, String nomeResponsavel, int totalIngressos) {
         this.codigoEvento = ++codigoBase;
@@ -22,6 +23,13 @@ public class Evento {
         ingressosEspeciais = (int) Math.round(totalIngressos * 0.15);
         ingressosNormais = totalIngressos - ingressosEspeciais;
         gerarIngressos();
+        this.statusEvento = "Rascunho";
+    }
+    public String getStatusEvento() {
+        return statusEvento;
+    }
+    public void setStatusEvento(String novoStatus) {
+        this.statusEvento = novoStatus;
     }
     private static String formatarNumero(int numero) {
         if (numero < 10) {
