@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class GerenciadorEventos {
     private List<Evento> listaEventos;
@@ -61,30 +64,66 @@ public class GerenciadorEventos {
         } else {
             return null;
         }
-
-
     }
-    public void gerarRelatorioMensal(int mes, int ano) {
-        boolean encontrou = false;
-        for (Evento evento : listaEventos) {
-            String[] partesData = evento.getDataEvento().split("/");
-            int eventoMes = Integer.parseInt(partesData[1]);
-            int eventoAno = Integer.parseInt(partesData[2]);
-            if (eventoMes == mes && eventoAno == ano) {
-                encontrou = true;
-                System.out.println("Evento: " + evento.getNomeEvento());
-                System.out.println("Data: " + evento.getDataEvento());
-                System.out.println("Ingressos totais: " + evento.getTotalIngressos());
-                System.out.println("Ingressos vendidos: " + (evento.getTotalIngressos() - evento.ingressosDisponiveis()));
-                System.out.println("Ingressos disponíveis: " + evento.ingressosDisponiveis());
-                System.out.println("-----------------------------");
+
+    public void cadastrarNovoEvento(Scanner scanner) {
+        System.out.println("\n--- CADASTRO DE NOVO EVENTO (Item 2) ---");
+
+        System.out.print("Nome do Evento (Obrigatório): ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Data (Formato dd/MM/yyyy - Obrigatório): ");
+        String dataStr = scanner.nextLine();
+
+        System.out.print("Valor do Ingresso (Obrigatório, > 0): R$ ");
+        String valorStr = scanner.nextLine();
+
+        System.out.print("Nome do Responsável (Obrigatório): ");
+        String responsavel = scanner.nextLine();
+
+        System.out.print("Lotação Máxima (Obrigatório, > 0): ");
+        String lotacaoStr = scanner.nextLine();
+
+        if (nome.trim().isEmpty() || dataStr.trim().isEmpty() ||
+                valorStr.trim().isEmpty() || responsavel.trim().isEmpty() || lotacaoStr.trim().isEmpty()) {
+            System.out.println("ERRO: Todos os campos são obrigatórios. Cadastro cancelado.");
+            return;
+        }
+
+        double valor;
+        int lotacao;
+        try {
+            valor = Double.parseDouble(valorStr);
+            lotacao = Integer.parseInt(lotacaoStr);
+            if (valor <= 0 || lotacao <= 0) {
+                System.out.println("ERRO: Valor do ingresso e Lotação devem ser positivos. Cadastro cancelado.");
+                return;
             }
+        } catch (NumberFormatException e) {
+            System.out.println("ERRO: Valor ou Lotação fornecidos não são números válidos. Cadastro cancelado.");
+            return;
         }
-        if (!encontrou) {
-            System.out.println("Nenhum evento encontrado para o mês/ano informado.");
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataEvento = LocalDate.parse(dataStr, formatter);
+            LocalDate hoje = LocalDate.now();
+
+            if (dataEvento.isBefore(hoje) || dataEvento.isEqual(hoje)) {
+                System.out.println("ERRO: A data de realização deve ser FUTURA. Cadastro cancelado.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("ERRO: Formato de data inválido. Use o padrão dd/MM/yyyy. Cadastro cancelado.");
+            return;
         }
+
+        Evento novoEvento = new Evento(nome, dataStr, valor, responsavel, lotacao);
+        this.listaEventos.add(novoEvento);
+
+        System.out.println("SUCESSO! Evento cadastrado. Código: " + novoEvento.getCodigoEvento());
     }
 
-
-
+    public void gerarRelatorioMensal(int mes, int ano) {
+    }
 }

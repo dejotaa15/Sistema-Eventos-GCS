@@ -6,6 +6,11 @@ public class Participante {
         if (cpf == null || cpf.length() != 11) {
             throw new IllegalArgumentException("CPF INVALIDO");
         }
+
+        if (nomeCompleto == null || nomeCompleto.trim().isEmpty()) {
+            throw new IllegalArgumentException("NOME COMPLETO é obrigatório.");
+        }
+
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
     }
