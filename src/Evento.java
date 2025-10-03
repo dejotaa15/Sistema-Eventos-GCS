@@ -19,7 +19,7 @@ public class Evento {
         this.valorIngresso = valorIngresso;
         this.nomeResponsavel = nomeResponsavel;
         this.totalIngressos = totalIngressos;
-        ingressosEspeciais = totalIngressos * 0.15;
+        ingressosEspeciais = (int) Math.round(totalIngressos * 0.15);
         ingressosNormais = totalIngressos - ingressosEspeciais;
         gerarIngressos();
     }
@@ -35,7 +35,7 @@ public class Evento {
         }
     }
 
-    private void gerarIngressos() {
+    public void gerarIngressos() {
         int contador = 1;
         for (int i = 0; i < ingressosNormais; i++) {
             String codigo = codigoEvento + "-" + formatarNumero(contador);
@@ -49,9 +49,9 @@ public class Evento {
         }
     }
 
-    public Ingresso comprarIngresso(Participante p) {
+    public Ingresso comprarIngresso(Participante p, boolean ingressoEspecial) {
         for (Ingresso ingresso : ingressos) {
-            if (ingresso.getParticipante() == null) { //ingresso disponivel
+            if (ingresso.getParticipante() == null && ingresso.isIngressoEspecial() == ingressoEspecial) { //ingresso disponivel
                 ingresso.setParticipante(p);
                 return ingresso;
             }
@@ -67,6 +67,16 @@ public class Evento {
             }
         }
         return count;
+    }
+
+    public boolean registrarPresenca(String codigoIngresso) {
+        for (Ingresso ingresso : ingressos) {
+            if (ingresso.getCodigoIngresso().equals(codigoIngresso) && ingresso.getParticipante() != null) {
+                ingresso.registrarPresenca();
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getCodigoEvento() {
@@ -103,7 +113,7 @@ public class Evento {
     public String toString() {
         String resultado = codigoEvento + " - " + nomeEvento + " | Data: " + dataEvento + " | R$" + valorIngresso +
                 " | Resp: " + nomeResponsavel + " | Ingressos: " + totalIngressos +
-                " | Ingressos Disponiveis: " + ingressosDisponiveis() + "\nIngressos: ";
+                " | Ingressos Disponiveis: " + ingressosDisponiveis() + "\n" ;
 
         for (Ingresso ingresso : ingressos) {
             if (ingresso.getParticipante() != null) {
