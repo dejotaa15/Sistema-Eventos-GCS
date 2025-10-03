@@ -53,7 +53,7 @@ public class GerenciadorEventos {
         if (eventosEncontrados.size() == 1) {
             return eventosEncontrados.get(0);
         } else if (eventosEncontrados.size() > 1) {
-            System.out.println("Múltiplos eventos encontrados:");
+            System.out.println("Muitos eventos encontrados:");
             for (int i = 0; i < eventosEncontrados.size(); i++) {
                 System.out.println(" [" + (i + 1) + "] " + eventosEncontrados.get(i));
             }
@@ -61,5 +61,10 @@ public class GerenciadorEventos {
         } else {
             return null;
         }
+
+
     }
+
+    
+
 }

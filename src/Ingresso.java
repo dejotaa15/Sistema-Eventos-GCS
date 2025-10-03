@@ -31,6 +31,11 @@ public class Ingresso {
         this.participante = participante;
     }
 
+    public boolean isIngressoEspecial() {
+        return ingressoEspecial;
+    }
+
+
     @Override
     public String toString() {
         return "Ingresso: " + codigoIngresso + " | " + participante + " | Presente: " + presente;
