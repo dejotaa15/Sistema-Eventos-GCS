@@ -14,6 +14,7 @@ public class Evento {
   
     ArrayList<Ingresso> ingressos = new ArrayList<>();
     private String statusEvento;
+    private int vendidos;
 
     public Evento(String nomeEvento, String dataEvento, double valorIngresso,
                   String nomeResponsavel, int totalIngressos) {
@@ -128,10 +129,7 @@ public class Evento {
         }
     }
 
-    public double getPercentualOcupacao() {
-        int vendidos = 0;
-    }
-      
+
     public int getCodigoEvento() { return codigoEvento; }
     public String getNomeEvento() { return nomeEvento; }
     public String getDataEvento() { return dataEvento; }
@@ -142,13 +140,14 @@ public class Evento {
   
     public int getIngressosVendidosNormais() {
         int count = 0;
+
         for (Ingresso ingresso : ingressos) {
             if (ingresso.getParticipante() != null) {
                 vendidos++;
             }
         }
         if (totalIngressos == 0) return 0;
-        return (vendidos * 100.0) / totalIngressos;
+        return (vendidos * 100) / totalIngressos;
     }
 
     @Override
