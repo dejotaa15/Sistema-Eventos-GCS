@@ -36,7 +36,8 @@ public class Main {
             System.out.println("4. Emitir ingresso");
             System.out.println("5. Registrar presença");
             System.out.println("6. Relatório mensal");
-            System.out.println("7. Sair");
+            System.out.println("7. ATUALIZAR PARTICIPANTE (Item 9)"); // Nova Opção
+            System.out.println("8. Sair"); // Sair movido para 8
             System.out.print("Escolha uma opção: ");
 
             if (scanner.hasNextInt()) {
@@ -69,6 +70,9 @@ public class Main {
                     gerenciadorEventos.gerarRelatorioMensal(mes, ano);
                     break;
                 case 7:
+                    gerenciadorEventos.atualizarDadosParticipante(scanner);
+                    break;
+                case 8:
                     System.out.println("Sistema encerrado.");
                     scanner.close();
                     break;
@@ -76,6 +80,6 @@ public class Main {
                     System.out.println("Opção não reconhecida.");
             }
 
-        } while (opcao != 7);
+        } while (opcao != 8);
     }
 }

@@ -15,6 +15,20 @@ public class Participante {
         this.cpf = cpf;
     }
 
+    public void setNomeCompleto(String nomeCompleto) {
+        if (nomeCompleto == null || nomeCompleto.trim().isEmpty()) {
+            throw new IllegalArgumentException("NOME COMPLETO não pode ser vazio.");
+        }
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public void setCpf(String cpf) {
+        if (cpf == null || cpf.length() != 11) {
+            throw new IllegalArgumentException("NOVO CPF INVALIDO");
+        }
+        this.cpf = cpf;
+    }
+
     public String getNomeCompleto() {
 
         return nomeCompleto;
