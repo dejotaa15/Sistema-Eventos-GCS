@@ -6,6 +6,7 @@ public class Evento {
     private double valorIngresso;
     private String nomeResponsavel;
     private int totalIngressos;
+    private String statusEvento;
 
     public Evento(String nomeEvento, String dataEvento, double valorIngresso, String nomeResponsavel, int totalIngressos) {
         this.codigoEvento = ++codigoBase;
@@ -14,7 +15,17 @@ public class Evento {
         this.valorIngresso = valorIngresso;
         this.nomeResponsavel = nomeResponsavel;
         this.totalIngressos = totalIngressos;
+        this.statusEvento = "Rascunho";
     }
+    public String getStatusEvento() {
+        return statusEvento;
+    }
+
+    public void setStatusEvento(String novoStatus) {
+        this.statusEvento = novoStatus;
+
+    }
+
 
     public int getCodigoEvento() {
         return codigoEvento;
