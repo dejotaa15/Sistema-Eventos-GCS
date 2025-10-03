@@ -128,6 +128,10 @@ public class Evento {
         }
     }
 
+    public double getPercentualOcupacao() {
+        int vendidos = 0;
+    }
+      
     public int getCodigoEvento() { return codigoEvento; }
     public String getNomeEvento() { return nomeEvento; }
     public String getDataEvento() { return dataEvento; }
@@ -139,31 +143,12 @@ public class Evento {
     public int getIngressosVendidosNormais() {
         int count = 0;
         for (Ingresso ingresso : ingressos) {
-            if (!ingresso.isIngressoEspecial() && ingresso.getParticipante() != null) {
-                count++;
+            if (ingresso.getParticipante() != null) {
+                vendidos++;
             }
         }
-        return count;
-    }
-
-    public int getIngressosVendidosEspeciais() {
-        int count = 0;
-        for (Ingresso ingresso : ingressos) {
-            if (ingresso.isIngressoEspecial() && ingresso.getParticipante() != null) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public double getPercentualIngressosVendidosNormais() {
-        if (ingressosNormais == 0) return 0;
-        return (getIngressosVendidosNormais() * 100.0) / ingressosNormais;
-    }
-
-    public double getPercentualIngressosVendidosEspeciais() {
-        if (ingressosEspeciais == 0) return 0;
-        return (getIngressosVendidosEspeciais() * 100.0) / ingressosEspeciais;
+        if (totalIngressos == 0) return 0;
+        return (vendidos * 100.0) / totalIngressos;
     }
 
     @Override
