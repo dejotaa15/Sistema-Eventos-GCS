@@ -35,10 +35,16 @@ public class Ingresso {
         return ingressoEspecial;
     }
 
+    public void cancelar() {
+        this.participante = null;
+        this.presente = false;
+    }
+
     @Override
     public String toString() {
-        return "Ingresso: " + codigoIngresso + " | " +
-                (participante != null ? participante.toString() : "Disponível") +
-                " | Presente: " + presente;
+        String nomeParticipante = (participante != null) ? participante.getNomeCompleto() : "DISPONÍVEL/CANCELADO";
+        String tipo = this.ingressoEspecial ? "Especial" : "Normal";
+
+        return "Ingresso: " + codigoIngresso + " | Tipo: " + tipo + " | Comprador: " + nomeParticipante + " | Presente: " + presente;
     }
 }
