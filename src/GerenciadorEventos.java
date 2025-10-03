@@ -64,7 +64,27 @@ public class GerenciadorEventos {
 
 
     }
+    public void gerarRelatorioMensal(int mes, int ano) {
+        boolean encontrou = false;
+        for (Evento evento : listaEventos) {
+            String[] partesData = evento.getDataEvento().split("/");
+            int eventoMes = Integer.parseInt(partesData[1]);
+            int eventoAno = Integer.parseInt(partesData[2]);
+            if (eventoMes == mes && eventoAno == ano) {
+                encontrou = true;
+                System.out.println("Evento: " + evento.getNomeEvento());
+                System.out.println("Data: " + evento.getDataEvento());
+                System.out.println("Ingressos totais: " + evento.getTotalIngressos());
+                System.out.println("Ingressos vendidos: " + (evento.getTotalIngressos() - evento.ingressosDisponiveis()));
+                System.out.println("Ingressos disponíveis: " + evento.ingressosDisponiveis());
+                System.out.println("-----------------------------");
+            }
+        }
+        if (!encontrou) {
+            System.out.println("Nenhum evento encontrado para o mês/ano informado.");
+        }
+    }
 
-    
+
 
 }
