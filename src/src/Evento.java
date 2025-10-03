@@ -7,6 +7,7 @@ public class Evento {
     private String nomeResponsavel;
     private int totalIngressos;
     private String statusEvento;
+    private int ingressosVendidos;
 
     public Evento(String nomeEvento, String dataEvento, double valorIngresso, String nomeResponsavel, int totalIngressos) {
         this.codigoEvento = ++codigoBase;
@@ -16,7 +17,29 @@ public class Evento {
         this.nomeResponsavel = nomeResponsavel;
         this.totalIngressos = totalIngressos;
         this.statusEvento = "Rascunho";
+        this.ingressosVendidos = 0;
     }
+    public int getIngressosDisponiveis() {
+        return totalIngressos - ingressosVendidos;
+    }
+    public boolean venderIngressos(int quantidade) {
+
+        if (quantidade > 0 && getIngressosDisponiveis() >= quantidade) {
+            this.ingressosVendidos += quantidade;
+
+
+            if (getIngressosDisponiveis() == 0) {
+                this.statusEvento = "Esgotado";
+            }
+
+            return true; 
+        } else {
+
+            System.out.println(" Venda não realizada! Ingressos insuficientes ou quantidade inválida.");
+            return false;
+        }
+    }
+
     public String getStatusEvento() {
         return statusEvento;
     }
